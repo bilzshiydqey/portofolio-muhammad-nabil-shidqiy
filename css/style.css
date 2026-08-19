@@ -1249,6 +1249,12 @@ body.no-scroll {
   gap: 40px;
 }
 
+.skills-toggle-wrapper {
+  display: none;
+  justify-content: center;
+  margin-top: 24px;
+}
+
 .skills-category {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
@@ -1903,9 +1909,8 @@ body.no-scroll {
   }
 
   .skills-category {
-    padding: 24px 20px 60px !important; /* Leave room for view more text */
+    padding: 24px 20px !important;
     position: relative;
-    cursor: pointer;
     overflow: hidden;
     transition: all 0.3s ease;
   }
@@ -1918,32 +1923,38 @@ body.no-scroll {
   }
 
   /* Fade overlay for collapsed state */
-  .skills-category::after {
-    content: 'View More +';
+  .skills-list::after {
+    content: '';
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 60px;
-    background: linear-gradient(to top, var(--bg-card) 40%, transparent);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.85rem;
-    font-weight: 500;
-    color: var(--accent-light);
-    border-radius: 0 0 20px 20px;
-    transition: all 0.3s ease;
+    height: 48px;
+    background: linear-gradient(to top, var(--bg-card) 20%, transparent);
+    pointer-events: none;
+    transition: opacity 0.3s ease;
   }
 
   .skills-category.expanded .skills-list {
     max-height: 1000px;
   }
 
-  .skills-category.expanded::after {
-    content: 'Show Less -';
-    background: transparent;
-    height: 40px;
+  .skills-category.expanded .skills-list::after {
+    opacity: 0;
+  }
+
+  .skills-toggle-wrapper {
+    display: flex !important;
+    justify-content: center;
+    margin-top: 28px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .skills-toggle-btn {
+    width: auto !important; /* prevent taking full card width */
+    padding: 10px 24px !important;
+    font-size: 0.8rem !important;
   }
 
   .skill-tag {
@@ -2024,7 +2035,7 @@ body.no-scroll {
   }
 
   .skills-category {
-    padding: 20px 16px 60px !important;
+    padding: 20px 16px !important;
   }
 
   .edu-detail-card {

@@ -418,11 +418,20 @@
 
   // ---- Skills Category Toggle (Mobile Accordion) ----
   document.querySelectorAll('.skills-category').forEach(category => {
-    category.addEventListener('click', () => {
-      if (window.innerWidth <= 768) {
-        category.classList.toggle('expanded');
-      }
-    });
+    const toggleBtn = category.querySelector('.skills-toggle-btn');
+    if (toggleBtn) {
+      toggleBtn.addEventListener('click', () => {
+        const isExpanded = category.classList.contains('expanded');
+        if (isExpanded) {
+          category.classList.remove('expanded');
+          toggleBtn.textContent = 'Show More';
+          category.scrollIntoView({ behavior: 'smooth' });
+        } else {
+          category.classList.add('expanded');
+          toggleBtn.textContent = 'Show Less';
+        }
+      });
+    }
   });
 
   // ---- Projects Collapse/Expand on Mobile ----
