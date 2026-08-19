@@ -4,6 +4,16 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
+  // ---- Welcome Screen Logic ----
+  const welcomeScreen = document.getElementById('welcome-screen');
+  const enterBtn = document.getElementById('enter-btn');
+
+  // Stop scrolling initially if welcome screen exists
+  if (welcomeScreen && enterBtn) {
+    document.body.classList.add('no-scroll');
+    // We will stop Lenis after it initializes below
+  }
+
   // ---- Initialize Lenis Smooth Scroll ----
   const lenis = new Lenis({
     duration: 1.2,
@@ -17,6 +27,34 @@ document.addEventListener('DOMContentLoaded', () => {
     requestAnimationFrame(raf);
   }
   requestAnimationFrame(raf);
+
+  if (welcomeScreen && enterBtn) {
+    lenis.stop(); // Stop Lenis scrolling immediately
+
+    enterBtn.addEventListener('click', () => {
+      // First: slide content up
+      const content = welcomeScreen.querySelector('.welcome-content');
+      if (content) {
+        content.style.opacity = '0';
+        content.style.transform = 'translateY(-40px)';
+      }
+
+      // Then: fade out the entire overlay after content slides away
+      setTimeout(() => {
+        // Instantly position at hero before revealing
+        window.scrollTo(0, 0);
+
+        welcomeScreen.classList.add('hidden');
+        document.body.classList.remove('no-scroll');
+        lenis.start();
+      }, 400);
+
+      // Finally: remove from DOM after all transitions complete
+      setTimeout(() => {
+        welcomeScreen.style.display = 'none';
+      }, 1600);
+    });
+  }
 
   // ---- Smooth Scroll Navigation ----
   document.querySelectorAll('.nav-links a, a[href^="#"]').forEach(link => {
