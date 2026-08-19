@@ -1988,6 +1988,21 @@ body.no-scroll {
     right: -12px !important;
   }
 
+  /* ---- Marquee Mobile ---- */
+  .marquee-label {
+    display: none !important;
+  }
+
+  .marquee-container {
+    justify-content: center !important;
+    padding: 0 16px !important;
+  }
+
+  .logo-marquee {
+    flex: 1 !important;
+    width: 100% !important;
+  }
+
   /* ---- Contact Mobile ---- */
   .contact-pills {
     gap: 8px !important;
