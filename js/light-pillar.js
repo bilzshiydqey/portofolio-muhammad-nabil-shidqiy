@@ -239,19 +239,6 @@ import * as THREE from 'three';
     container.addEventListener('mousemove', handleMouseMove, { passive: true });
   }
 
-  /* ---- Scroll Handler ---- */
-  let isScrolling = false;
-  let scrollTimeout = null;
-  const handleScroll = () => {
-    if (isMobile) return; // No scroll tracking needed on mobile since it is frozen
-    isScrolling = true;
-    if (scrollTimeout) clearTimeout(scrollTimeout);
-    scrollTimeout = window.setTimeout(() => {
-      isScrolling = false;
-    }, 150);
-  };
-  window.addEventListener('scroll', handleScroll, { passive: true });
-
   /* ---- Animation Loop ---- */
   let time = 0;
   let lastTime = performance.now();
@@ -260,21 +247,13 @@ import * as THREE from 'three';
   const frameTime = 1000 / targetFPS;
 
   const animate = (currentTime) => {
-    if (isMobile) {
-      // Render once to draw the static background, then stop animating entirely
-      renderer.render(scene, camera);
-      return;
-    }
-
     const deltaTime = currentTime - lastTime;
 
     if (deltaTime >= frameTime) {
-      if (isScrolling) {
-        time += 0.016 * CONFIG.rotationSpeed;
-        material.uniforms.uTime.value = time;
-        material.uniforms.uRotCos.value = Math.cos(time * 0.3);
-        material.uniforms.uRotSin.value = Math.sin(time * 0.3);
-      }
+      time += 0.016 * CONFIG.rotationSpeed;
+      material.uniforms.uTime.value = time;
+      material.uniforms.uRotCos.value = Math.cos(time * 0.3);
+      material.uniforms.uRotSin.value = Math.sin(time * 0.3);
       renderer.render(scene, camera);
       lastTime = currentTime - (deltaTime % frameTime);
     }
