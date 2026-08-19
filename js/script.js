@@ -405,14 +405,22 @@
   const awardsNext = document.querySelector('.awards-next');
 
   if (awardsSlider && awardsPrev && awardsNext) {
-    const scrollAmount = 400; // Adjust scroll distance
+    const getScrollAmount = () => {
+      const firstCard = awardsSlider.querySelector('.award-card');
+      if (firstCard) {
+        const style = window.getComputedStyle(awardsSlider);
+        const gap = parseInt(style.gap) || 24;
+        return firstCard.clientWidth + gap;
+      }
+      return 400; // fallback
+    };
 
     awardsPrev.addEventListener('click', () => {
-      awardsSlider.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+      awardsSlider.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
     });
 
     awardsNext.addEventListener('click', () => {
-      awardsSlider.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+      awardsSlider.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
     });
   }
 

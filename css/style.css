@@ -1962,18 +1962,35 @@ body.no-scroll {
   }
 
   /* ---- Awards Mobile ---- */
+  .awards-grid {
+    gap: 16px !important;
+    padding-bottom: 16px !important;
+    -webkit-overflow-scrolling: touch;
+  }
+
   .award-card {
-    flex: 0 0 calc(100% - 16px);
+    flex: 0 0 calc(100% - 32px) !important;
+    scroll-snap-align: center !important;
+    padding: 24px 20px !important;
   }
 
   .award-card img {
     max-height: 180px;
     object-fit: contain;
+    margin-bottom: 16px !important;
   }
 
-  .awards-nav button {
-    width: 36px;
-    height: 36px;
+  .awards-nav {
+    width: 36px !important;
+    height: 36px !important;
+  }
+
+  .awards-prev {
+    left: -12px !important;
+  }
+
+  .awards-next {
+    right: -12px !important;
   }
 
   /* ---- Contact Mobile ---- */
