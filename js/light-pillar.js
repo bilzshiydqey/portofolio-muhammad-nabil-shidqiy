@@ -239,18 +239,6 @@ import * as THREE from 'three';
     container.addEventListener('mousemove', handleMouseMove, { passive: true });
   }
 
-  /* ---- Scroll Handler ---- */
-  let isScrolling = false;
-  let scrollTimeout = null;
-  const handleScroll = () => {
-    isScrolling = true;
-    if (scrollTimeout) clearTimeout(scrollTimeout);
-    scrollTimeout = window.setTimeout(() => {
-      isScrolling = false;
-    }, 150);
-  };
-  window.addEventListener('scroll', handleScroll, { passive: true });
-
   /* ---- Animation Loop ---- */
   let time = 0;
   let lastTime = performance.now();
@@ -262,12 +250,10 @@ import * as THREE from 'three';
     const deltaTime = currentTime - lastTime;
 
     if (deltaTime >= frameTime) {
-      if (isScrolling) {
-        time += 0.016 * CONFIG.rotationSpeed;
-        material.uniforms.uTime.value = time;
-        material.uniforms.uRotCos.value = Math.cos(time * 0.3);
-        material.uniforms.uRotSin.value = Math.sin(time * 0.3);
-      }
+      time += 0.016 * CONFIG.rotationSpeed;
+      material.uniforms.uTime.value = time;
+      material.uniforms.uRotCos.value = Math.cos(time * 0.3);
+      material.uniforms.uRotSin.value = Math.sin(time * 0.3);
       renderer.render(scene, camera);
       lastTime = currentTime - (deltaTime % frameTime);
     }
@@ -299,10 +285,8 @@ import * as THREE from 'three';
 
   window.addEventListener('resize', handleResize, { passive: true });
 
-  /* ---- Cleanup on page unload ---- */
   window.addEventListener('beforeunload', () => {
     window.removeEventListener('resize', handleResize);
-    window.removeEventListener('scroll', handleScroll);
     if (CONFIG.interactive) {
       container.removeEventListener('mousemove', handleMouseMove);
     }
