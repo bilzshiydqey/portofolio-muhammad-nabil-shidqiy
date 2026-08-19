@@ -8,29 +8,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const welcomeScreen = document.getElementById('welcome-screen');
   const enterBtn = document.getElementById('enter-btn');
 
-  // Stop scrolling initially if welcome screen exists
   if (welcomeScreen && enterBtn) {
     document.body.classList.add('no-scroll');
-    // We will stop Lenis after it initializes below
-  }
-
-  // ---- Initialize Lenis Smooth Scroll ----
-  const lenis = new Lenis({
-    duration: 1.2,
-    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    smoothWheel: true,
-    smoothTouch: false,
-  });
-
-  function raf(time) {
-    lenis.raf(time);
-    requestAnimationFrame(raf);
-  }
-  requestAnimationFrame(raf);
-
-  if (welcomeScreen && enterBtn) {
-    lenis.stop(); // Stop Lenis scrolling immediately
-
+    
     enterBtn.addEventListener('click', () => {
       // First: slide content up
       const content = welcomeScreen.querySelector('.welcome-content');
@@ -46,7 +26,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         welcomeScreen.classList.add('hidden');
         document.body.classList.remove('no-scroll');
-        lenis.start();
+        if (typeof lenis !== 'undefined') {
+          lenis.start();
+        }
       }, 400);
 
       // Finally: remove from DOM after all transitions complete
@@ -55,6 +37,30 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 1600);
     });
   }
+
+  // ---- Initialize Lenis Smooth Scroll ----
+  let lenis;
+  try {
+    lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+      smoothTouch: false,
+    });
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+
+    if (welcomeScreen && enterBtn) {
+      lenis.stop(); // Stop Lenis scrolling initially
+    }
+  } catch (e) {
+    console.warn("Lenis smooth scroll could not be initialized:", e);
+  }
+
 
   // ---- Smooth Scroll Navigation ----
   document.querySelectorAll('.nav-links a, a[href^="#"]').forEach(link => {
