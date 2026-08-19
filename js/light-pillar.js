@@ -18,7 +18,7 @@ import * as THREE from 'three';
     glowAmount: 0.002,
     pillarWidth: 2.4,
     pillarHeight: 0.4,
-    noiseIntensity: 0.5,
+    noiseIntensity: 0.0,
     pillarRotation: 89,
     interactive: false,
     mixBlendMode: 'screen',
