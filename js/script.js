@@ -2,9 +2,7 @@
    JAVASCRIPT - Portfolio Interactivity
    ============================================ */
 
-document.addEventListener('DOMContentLoaded', () => {
-
-  // ---- Welcome Screen Logic ----
+// ---- Welcome Screen Logic ----
   const welcomeScreen = document.getElementById('welcome-screen');
   const enterBtn = document.getElementById('enter-btn');
 
@@ -417,5 +415,3 @@ document.addEventListener('DOMContentLoaded', () => {
       awardsSlider.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     });
   }
-
-});
