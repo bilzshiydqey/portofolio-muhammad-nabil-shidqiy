@@ -392,12 +392,7 @@
       e.preventDefault();
     }
   }, { passive: false });
-  // ---- Block Image/Video Downloading (Context Menu) ----
-  document.addEventListener('contextmenu', (e) => {
-    if (e.target.tagName === 'IMG' || e.target.tagName === 'VIDEO') {
-      e.preventDefault();
-    }
-  });
+
 
   // ---- Awards Slider Navigation ----
   const awardsSlider = document.getElementById('awards-slider');
