@@ -415,3 +415,13 @@
       awardsSlider.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     });
   }
+
+  // ---- Skills Category Toggle (Mobile Accordion) ----
+  document.querySelectorAll('.skills-category').forEach(category => {
+    category.addEventListener('click', () => {
+      if (window.innerWidth <= 768) {
+        category.classList.toggle('expanded');
+      }
+    });
+  });
+

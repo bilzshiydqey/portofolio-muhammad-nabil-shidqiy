@@ -1817,9 +1817,9 @@ body.no-scroll {
     flex-direction: row;
     overflow-x: auto;
     position: static;
-    gap: 0;
+    gap: 8px;
     -webkit-overflow-scrolling: touch;
-    padding-bottom: 4px;
+    padding-bottom: 8px;
     scrollbar-width: none;
   }
 
@@ -1828,17 +1828,19 @@ body.no-scroll {
   }
 
   .edu-tab {
-    border-left: none;
-    border-bottom: 3px solid transparent;
-    border-radius: 8px 8px 0 0;
+    border: 1px solid transparent;
+    border-radius: 8px;
     padding: 10px 16px;
     min-width: max-content;
     font-size: 0.8rem;
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text-muted);
   }
 
   .edu-tab.active {
-    border-bottom-color: var(--accent);
-    border-left-color: transparent;
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--border-color);
+    color: var(--text-primary);
   }
 
   .edu-detail-card {
@@ -1887,7 +1889,47 @@ body.no-scroll {
   }
 
   .skills-category {
-    padding: 24px 20px;
+    padding: 24px 20px 60px !important; /* Leave room for view more text */
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .skills-list {
+    max-height: 130px;
+    overflow: hidden;
+    position: relative;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Fade overlay for collapsed state */
+  .skills-category::after {
+    content: 'View More +';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background: linear-gradient(to top, var(--bg-card) 40%, transparent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--accent-light);
+    border-radius: 0 0 20px 20px;
+    transition: all 0.3s ease;
+  }
+
+  .skills-category.expanded .skills-list {
+    max-height: 1000px;
+  }
+
+  .skills-category.expanded::after {
+    content: 'Show Less -';
+    background: transparent;
+    height: 40px;
   }
 
   .skill-tag {
@@ -1910,9 +1952,25 @@ body.no-scroll {
   }
 
   /* ---- Contact Mobile ---- */
-  .contact-grid {
-    grid-template-columns: 1fr;
-    gap: 32px;
+  .contact-pills {
+    gap: 8px !important;
+    margin-bottom: 24px !important;
+  }
+
+  .contact-pill {
+    padding: 8px 14px !important;
+    font-size: 0.8rem !important;
+  }
+
+  .contact-form {
+    padding: 28px 20px !important;
+    gap: 20px !important;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    padding: 12px 16px !important;
+    font-size: 0.9rem !important;
   }
 
   /* ---- Timeline Mobile ---- */
@@ -1952,7 +2010,7 @@ body.no-scroll {
   }
 
   .skills-category {
-    padding: 20px 16px;
+    padding: 20px 16px 60px !important;
   }
 
   .edu-detail-card {
@@ -2174,9 +2232,9 @@ section:not(.hero) .container {
     flex-direction: row;
     overflow-x: auto;
     position: relative;
-    gap: 0;
+    gap: 8px;
     -webkit-overflow-scrolling: touch;
-    padding-bottom: 4px;
+    padding-bottom: 8px;
     scrollbar-width: none;
   }
 
@@ -2185,18 +2243,19 @@ section:not(.hero) .container {
   }
 
   .exp-tab {
-    border: none;
-    border-bottom: 3px solid transparent;
-    border-radius: 8px 8px 0 0;
+    border: 1px solid transparent;
+    border-radius: 8px;
     padding: 10px 16px;
     min-width: max-content;
     font-size: 0.8rem;
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text-muted);
   }
 
   .exp-tab.active {
-    border-bottom-color: var(--accent);
-    border-color: transparent;
-    background: transparent;
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--border-color);
+    color: var(--text-primary);
   }
 
   .exp-detail-card {
