@@ -203,7 +203,7 @@ import * as THREE from 'three';
       uGlowAmount: { value: CONFIG.glowAmount },
       uPillarWidth: { value: CONFIG.pillarWidth },
       uPillarHeight: { value: CONFIG.pillarHeight },
-      uNoiseIntensity: { value: isMobile ? 0.0 : CONFIG.noiseIntensity },
+      uNoiseIntensity: { value: CONFIG.noiseIntensity },
       uRotCos: { value: 1.0 },
       uRotSin: { value: 0.0 },
       uPillarRotCos: { value: Math.cos(pillarRotRad) },
