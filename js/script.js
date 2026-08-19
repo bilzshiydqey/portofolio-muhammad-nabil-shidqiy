@@ -425,3 +425,33 @@
     });
   });
 
+  // ---- Projects Collapse/Expand on Mobile ----
+  const projectsGrid = document.querySelector('.projects-grid');
+  const projectsToggleBtn = document.getElementById('projects-toggle-btn');
+  
+  if (projectsGrid && projectsToggleBtn) {
+    // Set initial collapsed state on load if mobile
+    if (window.innerWidth <= 768) {
+      projectsGrid.classList.add('collapsed');
+    }
+    
+    projectsToggleBtn.addEventListener('click', () => {
+      const isCollapsed = projectsGrid.classList.contains('collapsed');
+      
+      if (isCollapsed) {
+        projectsGrid.classList.remove('collapsed');
+        projectsToggleBtn.textContent = 'Show Less';
+      } else {
+        projectsGrid.classList.add('collapsed');
+        projectsToggleBtn.textContent = 'Show More';
+        
+        // Scroll back up to the top of the projects section so the user isn't disoriented
+        const projectsSection = document.getElementById('projects');
+        if (projectsSection) {
+          projectsSection.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    });
+  }
+
+
