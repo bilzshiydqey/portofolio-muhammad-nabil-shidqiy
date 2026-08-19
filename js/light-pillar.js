@@ -243,6 +243,7 @@ import * as THREE from 'three';
   let isScrolling = false;
   let scrollTimeout = null;
   const handleScroll = () => {
+    if (isMobile) return; // No scroll tracking needed on mobile since it is frozen
     isScrolling = true;
     if (scrollTimeout) clearTimeout(scrollTimeout);
     scrollTimeout = window.setTimeout(() => {
@@ -259,6 +260,12 @@ import * as THREE from 'three';
   const frameTime = 1000 / targetFPS;
 
   const animate = (currentTime) => {
+    if (isMobile) {
+      // Render once to draw the static background, then stop animating entirely
+      renderer.render(scene, camera);
+      return;
+    }
+
     const deltaTime = currentTime - lastTime;
 
     if (deltaTime >= frameTime) {
@@ -278,7 +285,14 @@ import * as THREE from 'three';
 
   /* ---- Resize Handler ---- */
   let resizeTimeout = null;
+  let lastWidth = window.innerWidth;
   const handleResize = () => {
+    if (isMobile) {
+      // On mobile, only trigger resize if horizontal width actually changes (orientation change)
+      if (window.innerWidth === lastWidth) return;
+      lastWidth = window.innerWidth;
+    }
+
     if (resizeTimeout) clearTimeout(resizeTimeout);
 
     resizeTimeout = window.setTimeout(() => {
