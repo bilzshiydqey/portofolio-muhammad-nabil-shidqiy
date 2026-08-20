@@ -1870,7 +1870,10 @@ body.no-scroll {
     position: static;
     gap: 8px;
     -webkit-overflow-scrolling: touch;
-    padding-bottom: 8px;
+    padding: 4px;
+    padding-bottom: 12px;
+    margin: -4px;
+    margin-bottom: 0;
     scrollbar-width: none;
   }
 
@@ -2366,7 +2369,10 @@ section:not(.hero) .container {
     position: relative;
     gap: 8px;
     -webkit-overflow-scrolling: touch;
-    padding-bottom: 8px;
+    padding: 4px;
+    padding-bottom: 12px;
+    margin: -4px;
+    margin-bottom: 0;
     scrollbar-width: none;
   }
 
