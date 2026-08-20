@@ -1772,6 +1772,13 @@ body.no-scroll {
     padding: 100px 16px 40px;
     min-height: calc(100vh - 60px);
     min-height: calc(100dvh - 60px);
+    /* Prevent resize flicker from mobile address bar */
+    min-height: -webkit-fill-available;
+  }
+
+  #plasma-wave-container {
+    /* Lock canvas container size to prevent reflow on mobile scroll */
+    contain: strict;
   }
 
   .hero-content {

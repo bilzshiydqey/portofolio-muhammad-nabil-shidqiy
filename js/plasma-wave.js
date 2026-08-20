@@ -56,12 +56,14 @@ import { Renderer, Camera, Transform, Program, Mesh, Geometry } from 'ogl';
     uniform float uBend2;
     uniform vec3  uColor1;
     uniform vec3  uColor2;
+    uniform int   uMaxSteps;
 
     const float lt   = 0.3;
     const float pi   = 3.14159;
     const float pi2  = 6.28318;
     const float pi_2 = 1.5708;
-    #define MAX_STEPS 14
+    #define MAX_STEPS_DESKTOP 14
+    #define MAX_STEPS_MOBILE 8
 
     void mainImage(out vec4 C, in vec2 U) {
       float t = iTime * pi;
@@ -79,7 +81,8 @@ import { Renderer, Camera, Transform, Program, Mesh, Geometry } from 'ogl';
       float tSpeed1 = t * uSpeed1;
       float tSpeed2 = t * uSpeed2 * uDir2;
 
-      for (int i = 0; i < MAX_STEPS; ++i) {
+      for (int i = 0; i < MAX_STEPS_DESKTOP; ++i) {
+        if (i >= uMaxSteps) break;
         p = o + u * d;
         p.x -= 15.0;
 
@@ -129,10 +132,15 @@ import { Renderer, Camera, Transform, Program, Mesh, Geometry } from 'ogl';
     }
   `;
 
+  /* ---- Detect mobile for performance adjustments ---- */
+  const isMobile = window.innerWidth <= 768 || ('ontouchstart' in window);
+  const mobileDpr = Math.min(window.devicePixelRatio, 1.0);
+  const desktopDpr = Math.min(window.devicePixelRatio, 1.5);
+
   /* ---- WebGL Setup via OGL ---- */
   const renderer = new Renderer({
     alpha: true,
-    dpr: Math.min(window.devicePixelRatio, 1.5),
+    dpr: isMobile ? mobileDpr : desktopDpr,
     antialias: false,
     depth: false,
     stencil: false,
@@ -173,6 +181,7 @@ import { Renderer, Camera, Transform, Program, Mesh, Geometry } from 'ogl';
       uBend2: { value: CONFIG.bend2 },
       uColor1: { value: c1 },
       uColor2: { value: c2 },
+      uMaxSteps: { value: isMobile ? 8 : 14 },
     },
   });
 
@@ -180,19 +189,23 @@ import { Renderer, Camera, Transform, Program, Mesh, Geometry } from 'ogl';
 
   /* ---- Resize ---- */
   let lastWidth = 0;
+  let lastHeight = 0;
 
   function resize() {
     if (!container) return;
     const { width, height } = container.getBoundingClientRect();
+    if (width <= 0 || height <= 0) return;
     
-    // Fix mobile scroll flicker: ignore height-only changes on mobile devices
-    // which are triggered by the browser address bar showing/hiding on scroll
-    const isMobile = window.innerWidth <= 768;
-    if (isMobile && lastWidth !== 0 && Math.abs(width - lastWidth) < 1) {
-      return;
+    // On mobile, only resize if dimensions actually changed significantly
+    // This prevents the address bar show/hide from triggering expensive re-renders
+    if (isMobile) {
+      if (lastWidth !== 0 && Math.abs(width - lastWidth) < 2 && Math.abs(height - lastHeight) < 50) {
+        return;
+      }
     }
     
     lastWidth = width;
+    lastHeight = height;
 
     renderer.setSize(width, height);
     uniformResolution[0] = width * renderer.dpr;

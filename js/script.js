@@ -66,12 +66,31 @@
       const targetId = link.getAttribute('href');
       if (targetId && targetId.startsWith('#') && targetId.length > 1) {
         e.preventDefault();
-        lenis.scrollTo(targetId, {
-          offset: -80,
-        });
-        // Close mobile menu if open
-        const navLinks = document.querySelector('.nav-links');
-        if (navLinks) navLinks.classList.remove('open');
+
+        // Close mobile menu first if open
+        const navLinksEl = document.querySelector('.nav-links');
+        const navToggleEl = document.querySelector('.nav-toggle');
+        if (navLinksEl && navLinksEl.classList.contains('open')) {
+          navLinksEl.classList.remove('open');
+          if (navToggleEl) {
+            navToggleEl.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>';
+          }
+        }
+
+        // Use native scroll on mobile for reliability (Lenis smoothTouch is off)
+        const isMobile = window.innerWidth <= 768;
+        if (isMobile) {
+          const targetEl = document.querySelector(targetId);
+          if (targetEl) {
+            const navbarHeight = document.querySelector('.navbar')?.offsetHeight || 60;
+            const y = targetEl.getBoundingClientRect().top + window.scrollY - navbarHeight - 16;
+            window.scrollTo({ top: y, behavior: 'smooth' });
+          }
+        } else if (lenis) {
+          lenis.scrollTo(targetId, {
+            offset: -80,
+          });
+        }
       }
     });
   });
