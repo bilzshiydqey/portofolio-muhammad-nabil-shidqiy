@@ -34,6 +34,11 @@ import { Renderer, Camera, Transform, Program, Mesh, Geometry } from 'ogl';
     return [r, g, b];
   }
 
+  /* ---- Detect mobile for performance adjustments ---- */
+  const isMobile = window.innerWidth <= 768 || ('ontouchstart' in window);
+  const mobileDpr = Math.min(window.devicePixelRatio || 1.0, 1.0);
+  const desktopDpr = Math.min(window.devicePixelRatio || 1.0, 1.5);
+
   /* ---- Shaders ---- */
   const VERT = /* glsl */ `
     attribute vec2 position;
@@ -56,14 +61,12 @@ import { Renderer, Camera, Transform, Program, Mesh, Geometry } from 'ogl';
     uniform float uBend2;
     uniform vec3  uColor1;
     uniform vec3  uColor2;
-    uniform int   uMaxSteps;
 
     const float lt   = 0.3;
     const float pi   = 3.14159;
     const float pi2  = 6.28318;
     const float pi_2 = 1.5708;
-    #define MAX_STEPS_DESKTOP 14
-    #define MAX_STEPS_MOBILE 8
+    #define MAX_STEPS ${isMobile ? 8 : 14}
 
     void mainImage(out vec4 C, in vec2 U) {
       float t = iTime * pi;
@@ -81,8 +84,7 @@ import { Renderer, Camera, Transform, Program, Mesh, Geometry } from 'ogl';
       float tSpeed1 = t * uSpeed1;
       float tSpeed2 = t * uSpeed2 * uDir2;
 
-      for (int i = 0; i < MAX_STEPS_DESKTOP; ++i) {
-        if (i >= uMaxSteps) break;
+      for (int i = 0; i < MAX_STEPS; ++i) {
         p = o + u * d;
         p.x -= 15.0;
 
@@ -132,11 +134,6 @@ import { Renderer, Camera, Transform, Program, Mesh, Geometry } from 'ogl';
     }
   `;
 
-  /* ---- Detect mobile for performance adjustments ---- */
-  const isMobile = window.innerWidth <= 768 || ('ontouchstart' in window);
-  const mobileDpr = Math.min(window.devicePixelRatio, 1.0);
-  const desktopDpr = Math.min(window.devicePixelRatio, 1.5);
-
   /* ---- WebGL Setup via OGL ---- */
   const renderer = new Renderer({
     alpha: true,
@@ -181,7 +178,6 @@ import { Renderer, Camera, Transform, Program, Mesh, Geometry } from 'ogl';
       uBend2: { value: CONFIG.bend2 },
       uColor1: { value: c1 },
       uColor2: { value: c2 },
-      uMaxSteps: { value: isMobile ? 8 : 14 },
     },
   });
 
