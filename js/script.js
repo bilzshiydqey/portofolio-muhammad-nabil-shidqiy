@@ -485,4 +485,25 @@
     });
   }
 
+  // ---- Image Download Protection ----
+  // Block right-click on all images
+  document.addEventListener('contextmenu', (e) => {
+    if (e.target.tagName === 'IMG') {
+      e.preventDefault();
+    }
+  });
+
+  // Block drag on all images (prevents drag-to-desktop save)
+  document.addEventListener('dragstart', (e) => {
+    if (e.target.tagName === 'IMG') {
+      e.preventDefault();
+    }
+  });
+
+  // Block long-press save on mobile (iOS/Android)
+  document.querySelectorAll('img').forEach(img => {
+    img.addEventListener('touchstart', (e) => {
+      // Prevent default long-press behavior
+    }, { passive: true });
+  });
 
