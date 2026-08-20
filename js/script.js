@@ -323,27 +323,41 @@
   function setupScrollSync(contentElement, tabElements) {
     if (!contentElement || !tabElements.length) return;
     
-    let isScrollingTimeout;
+    let lastActiveIndex = -1;
+    let isClickScrolling = false;
+
+    // Track when a tab is clicked so we don't fight the scroll
+    tabElements.forEach(tab => {
+      tab.addEventListener('click', () => {
+        if (window.innerWidth <= 768) {
+          isClickScrolling = true;
+          setTimeout(() => { isClickScrolling = false; }, 600);
+        }
+      });
+    });
+    
     contentElement.addEventListener('scroll', () => {
       if (window.innerWidth > 768) return;
       
-      clearTimeout(isScrollingTimeout);
-      isScrollingTimeout = setTimeout(() => {
-        const scrollLeft = contentElement.scrollLeft;
-        const panelWidth = contentElement.clientWidth;
+      const scrollLeft = contentElement.scrollLeft;
+      const panelWidth = contentElement.clientWidth;
+      
+      // Calculate which panel is currently most visible
+      const activeIndex = Math.round(scrollLeft / panelWidth);
+      
+      // Only trigger updates if the active index actually changed
+      if (activeIndex !== lastActiveIndex && tabElements[activeIndex]) {
+        lastActiveIndex = activeIndex;
         
-        // Calculate which panel is currently most visible
-        const activeIndex = Math.round(scrollLeft / panelWidth);
+        // Update active class instantly without delay
+        tabElements.forEach(t => t.classList.remove('active'));
+        tabElements[activeIndex].classList.add('active');
         
-        if (tabElements[activeIndex]) {
-          // Update active class
-          tabElements.forEach(t => t.classList.remove('active'));
-          tabElements[activeIndex].classList.add('active');
-          
-          // Scroll tab into view smoothly
+        // Smoothly scroll the tab into view, unless the user just clicked it
+        if (!isClickScrolling) {
           tabElements[activeIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
         }
-      }, 50);
+      }
     });
   }
 
