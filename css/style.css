@@ -1871,11 +1871,23 @@ body.no-scroll {
     gap: 8px;
     -webkit-overflow-scrolling: touch;
     padding-bottom: 8px;
-    scrollbar-width: none;
+    scrollbar-width: thin;
+    scrollbar-color: var(--text-muted) rgba(255, 255, 255, 0.1);
   }
 
   .education-tabs::-webkit-scrollbar {
-    display: none;
+    display: block;
+    height: 4px;
+  }
+
+  .education-tabs::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+  }
+
+  .education-tabs::-webkit-scrollbar-thumb {
+    background: var(--text-muted);
+    border-radius: 4px;
   }
 
   .edu-tab {
@@ -1889,8 +1901,8 @@ body.no-scroll {
   }
 
   .edu-tab.active {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: var(--border-color);
+    background: var(--bg-primary);
+    border-color: var(--accent-light);
     color: var(--text-primary);
   }
 
@@ -2331,11 +2343,23 @@ section:not(.hero) .container {
     gap: 8px;
     -webkit-overflow-scrolling: touch;
     padding-bottom: 8px;
-    scrollbar-width: none;
+    scrollbar-width: thin;
+    scrollbar-color: var(--text-muted) rgba(255, 255, 255, 0.1);
   }
 
   .experience-tabs::-webkit-scrollbar {
-    display: none;
+    display: block;
+    height: 4px;
+  }
+
+  .experience-tabs::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+  }
+
+  .experience-tabs::-webkit-scrollbar-thumb {
+    background: var(--text-muted);
+    border-radius: 4px;
   }
 
   .exp-tab {
@@ -2349,8 +2373,8 @@ section:not(.hero) .container {
   }
 
   .exp-tab.active {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: var(--border-color);
+    background: var(--bg-primary);
+    border-color: var(--accent-light);
     color: var(--text-primary);
   }
 
