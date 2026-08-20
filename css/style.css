@@ -1798,8 +1798,7 @@ body.no-scroll {
   }
 
   #plasma-wave-container {
-    /* Lock canvas container size to prevent reflow on mobile scroll */
-    contain: strict;
+    /* removed contain: strict because it breaks canvas dimensions on iOS Safari */
   }
 
   .hero-content {
