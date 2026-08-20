@@ -1871,23 +1871,11 @@ body.no-scroll {
     gap: 8px;
     -webkit-overflow-scrolling: touch;
     padding-bottom: 8px;
-    scrollbar-width: thin;
-    scrollbar-color: var(--text-muted) rgba(255, 255, 255, 0.1);
+    scrollbar-width: none;
   }
 
   .education-tabs::-webkit-scrollbar {
-    display: block;
-    height: 4px;
-  }
-
-  .education-tabs::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 4px;
-  }
-
-  .education-tabs::-webkit-scrollbar-thumb {
-    background: var(--text-muted);
-    border-radius: 4px;
+    display: none;
   }
 
   .edu-tab {
@@ -1904,6 +1892,42 @@ body.no-scroll {
     background: var(--bg-primary);
     border-color: var(--accent-light);
     color: var(--text-primary);
+  }
+
+  .education-content {
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    gap: 16px;
+    padding-bottom: 12px;
+    scrollbar-width: auto;
+    scrollbar-color: #444444 #000000;
+  }
+
+  .education-content::-webkit-scrollbar {
+    height: 12px;
+  }
+
+  .education-content::-webkit-scrollbar-track {
+    background: #000000;
+  }
+
+  .education-content::-webkit-scrollbar-thumb {
+    background: #444444;
+    border-radius: 10px;
+    border: 3px solid #000000;
+  }
+
+  .edu-panel {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    flex: 0 0 100%;
+    min-width: 100%;
+    scroll-snap-align: center;
+    transform: none !important;
   }
 
   .edu-detail-card {
@@ -2343,23 +2367,11 @@ section:not(.hero) .container {
     gap: 8px;
     -webkit-overflow-scrolling: touch;
     padding-bottom: 8px;
-    scrollbar-width: thin;
-    scrollbar-color: var(--text-muted) rgba(255, 255, 255, 0.1);
+    scrollbar-width: none;
   }
 
   .experience-tabs::-webkit-scrollbar {
-    display: block;
-    height: 4px;
-  }
-
-  .experience-tabs::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 4px;
-  }
-
-  .experience-tabs::-webkit-scrollbar-thumb {
-    background: var(--text-muted);
-    border-radius: 4px;
+    display: none;
   }
 
   .exp-tab {
@@ -2376,6 +2388,42 @@ section:not(.hero) .container {
     background: var(--bg-primary);
     border-color: var(--accent-light);
     color: var(--text-primary);
+  }
+
+  .experience-content {
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    gap: 16px;
+    padding-bottom: 12px;
+    scrollbar-width: auto;
+    scrollbar-color: #444444 #000000;
+  }
+
+  .experience-content::-webkit-scrollbar {
+    height: 12px;
+  }
+
+  .experience-content::-webkit-scrollbar-track {
+    background: #000000;
+  }
+
+  .experience-content::-webkit-scrollbar-thumb {
+    background: #444444;
+    border-radius: 10px;
+    border: 3px solid #000000;
+  }
+
+  .exp-panel {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    flex: 0 0 100%;
+    min-width: 100%;
+    scroll-snap-align: center;
+    transform: none !important;
   }
 
   .exp-detail-card {

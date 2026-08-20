@@ -175,6 +175,12 @@
       eduTabs.forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
 
+      if (window.innerWidth <= 768) {
+        targetPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+        tab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        return;
+      }
+
       // Animate indicator
       if (window.innerWidth > 768 && eduIndicator) {
         gsap.to(eduIndicator, {
@@ -260,6 +266,12 @@
       // Update active tab button state
       expTabs.forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
+
+      if (window.innerWidth <= 768) {
+        targetPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+        tab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        return;
+      }
 
       // Animate indicator
       if (window.innerWidth > 768 && expIndicator) {
