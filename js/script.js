@@ -319,6 +319,37 @@
     });
   });
 
+  // ---- Mobile Scroll Sync for Tabs ----
+  function setupScrollSync(contentElement, tabElements) {
+    if (!contentElement || !tabElements.length) return;
+    
+    let isScrollingTimeout;
+    contentElement.addEventListener('scroll', () => {
+      if (window.innerWidth > 768) return;
+      
+      clearTimeout(isScrollingTimeout);
+      isScrollingTimeout = setTimeout(() => {
+        const scrollLeft = contentElement.scrollLeft;
+        const panelWidth = contentElement.clientWidth;
+        
+        // Calculate which panel is currently most visible
+        const activeIndex = Math.round(scrollLeft / panelWidth);
+        
+        if (tabElements[activeIndex]) {
+          // Update active class
+          tabElements.forEach(t => t.classList.remove('active'));
+          tabElements[activeIndex].classList.add('active');
+          
+          // Scroll tab into view smoothly
+          tabElements[activeIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        }
+      }, 50);
+    });
+  }
+
+  setupScrollSync(eduContent, eduTabs);
+  setupScrollSync(expContent, expTabs);
+
   // Init indicators and handle window load/resize
   setTimeout(() => {
     syncEduIndicator();

@@ -1861,7 +1861,7 @@ body.no-scroll {
   /* ---- Education Mobile ---- */
   .education-grid {
     grid-template-columns: 1fr;
-    gap: 20px;
+    gap: 12px;
   }
 
   .education-tabs {
@@ -2357,7 +2357,7 @@ section:not(.hero) .container {
 @media (max-width: 768px) {
   .experience-grid {
     grid-template-columns: 1fr;
-    gap: 20px;
+    gap: 12px;
   }
 
   .experience-tabs {
