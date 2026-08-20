@@ -67,6 +67,8 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 80px;
+  scrollbar-width: thin;
+  scrollbar-color: #3a3a3a transparent;
 }
 
 body {
@@ -83,9 +85,11 @@ body {
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
+  background: transparent;
 }
 
-::-webkit-scrollbar-track {
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-track-piece {
   background: transparent;
 }
 
@@ -96,6 +100,14 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #555555;
+}
+
+::-webkit-scrollbar-button {
+  display: none;
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
 }
 
 a {
@@ -401,7 +413,7 @@ body.no-scroll {
   width: 100%;
 }
 
-#light-pillar-container {
+#plasma-wave-container {
   position: absolute;
   top: 0;
   left: 0;
@@ -409,6 +421,12 @@ body.no-scroll {
   height: 100%;
   z-index: 0;
   pointer-events: none;
+}
+
+#plasma-wave-container canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
 }
 
 .hero-content {
