@@ -1902,7 +1902,7 @@ body.no-scroll {
     overflow-x: auto;
     overflow-y: hidden;
     scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
     gap: 16px;
     padding-bottom: 12px;
     scrollbar-width: auto;
@@ -2401,7 +2401,7 @@ section:not(.hero) .container {
     overflow-x: auto;
     overflow-y: hidden;
     scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
     gap: 16px;
     padding-bottom: 12px;
     scrollbar-width: auto;

@@ -176,8 +176,8 @@
       tab.classList.add('active');
 
       if (window.innerWidth <= 768) {
-        targetPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
-        tab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        targetPanel.scrollIntoView({ behavior: 'auto', block: 'nearest', inline: 'start' });
+        tab.scrollIntoView({ behavior: 'auto', block: 'nearest', inline: 'center' });
         return;
       }
 
@@ -268,8 +268,8 @@
       tab.classList.add('active');
 
       if (window.innerWidth <= 768) {
-        targetPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
-        tab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        targetPanel.scrollIntoView({ behavior: 'auto', block: 'nearest', inline: 'start' });
+        tab.scrollIntoView({ behavior: 'auto', block: 'nearest', inline: 'center' });
         return;
       }
 
@@ -355,7 +355,7 @@
         
         // Smoothly scroll the tab into view, unless the user just clicked it
         if (!isClickScrolling) {
-          tabElements[activeIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+          tabElements[activeIndex].scrollIntoView({ behavior: 'auto', block: 'nearest', inline: 'center' });
         }
       }
     });
