@@ -179,9 +179,21 @@ import { Renderer, Camera, Transform, Program, Mesh, Geometry } from 'ogl';
   new Mesh(gl, { geometry, program }).setParent(scene);
 
   /* ---- Resize ---- */
+  let lastWidth = 0;
+
   function resize() {
     if (!container) return;
     const { width, height } = container.getBoundingClientRect();
+    
+    // Fix mobile scroll flicker: ignore height-only changes on mobile devices
+    // which are triggered by the browser address bar showing/hiding on scroll
+    const isMobile = window.innerWidth <= 768;
+    if (isMobile && lastWidth !== 0 && Math.abs(width - lastWidth) < 1) {
+      return;
+    }
+    
+    lastWidth = width;
+
     renderer.setSize(width, height);
     uniformResolution[0] = width * renderer.dpr;
     uniformResolution[1] = height * renderer.dpr;
